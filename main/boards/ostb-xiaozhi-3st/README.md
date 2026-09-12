@@ -1,0 +1,18 @@
+# OSTB Xiaozhi 3st (Box D-Solution 1.83" / 2" 2-Mic)
+
+## Hardware Specifications
+- **MCU:** ESP32-S3-WROOM-1 (N16R8, 16MB Flash, 8MB Octal PSRAM)
+- **Display:** 1.83" / 2.0" NV3030B LCD (296x240 active area, SPI)
+  - Display Width: 296, Height: 240
+  - Offset X: 24, Offset Y: 0
+  - Swap XY: true, Mirror X: true, Mirror Y: true
+- **Audio:** ES8311 (DAC/Amp) + ES7210 (ADC Mic Array, TDM Slave)
+- **Touchscreen:** CST816S (I2C)
+- **Power:** Onboard LiPo battery charger, battery ADC voltage monitoring
+- **Buttons:**
+  - BOOT / Wakeup: GPIO 0
+  - Volume Up: GPIO 39 (Single click: Volume +, Double click: Toggle chat / AP reset on startup)
+  - Volume Down: GPIO 40 (Single click: Volume -, Double click / 5-click: Reset WiFi AP)
+
+## Pinout
+Refer to `docs/PINOUT.md` and `partitions/v2/16m_ostb_xiaozhi_3st.csv`.

@@ -51,27 +51,26 @@ void Esp32Radio::Initialize(AudioCodec* codec)
 
 void Esp32Radio::InitializeRadioStations()
 {
-    /* === VOV - National channels === */
-    radio_stations_["VOV1"]         = RadioStation("VOV 1 - Thời sự",                   "https://stream.vovmedia.vn/vov-1",       "Tin tức & thời sự quốc gia",               "News/Talk",            4.5f);
-    radio_stations_["VOV2"]         = RadioStation("VOV 2 - Văn hóa & Giáo dục",        "https://stream.vovmedia.vn/vov-2",       "Văn hóa - giáo dục - xã hội",              "Culture/Education",    4.0f);
-    radio_stations_["VOV3"]         = RadioStation("VOV 3 - Âm nhạc & Giải trí",        "https://stream.vovmedia.vn/vov-3",       "Nhạc & giải trí tổng hợp",                 "Music/Entertainment",  4.4f);
-    radio_stations_["VOV5"]         = RadioStation("VOV 5 - Đối ngoại",                 "https://stream.vovmedia.vn/vov5",        "Kênh tiếng Việt & quốc tế",                "International",        4.1f);
-    
-    /* === VOV Traffic === */
-    radio_stations_["VOV_GT_HN"]    = RadioStation("VOV Giao thông Hà Nội",             "https://stream.vovmedia.vn/vovgt-hn",    "Giao thông & đời sống Hà Nội",             "Traffic",              4.7f);
-    radio_stations_["VOV_GT_HCM"]   = RadioStation("VOV Giao thông TP.HCM",             "https://stream.vovmedia.vn/vovgt-hcm",   "Giao thông & đời sống TP.HCM",             "Traffic",              4.7f);
+    /* === Russian & Dance === */
+    radio_stations_["RECORD"]         = RadioStation("Радио Рекорд",             "https://radiorecord.hostingradio.ru/rr_main96.aacp", "Главная танцевальная станция", "Dance / Electronic", 4.5f);
+    radio_stations_["RUSSIAN_MIX"]    = RadioStation("Рекорд Русский Микс",      "https://radiorecord.hostingradio.ru/rus96.aacp",     "Русские танцевальные хиты",     "Russian Dance / Pop", 4.5f);
+    radio_stations_["CHILL"]          = RadioStation("Рекорд Chill-Out",         "https://radiorecord.hostingradio.ru/chil96.aacp",    "Спокойная расслабляющая музыка", "Chillout / Lounge",   4.5f);
+    radio_stations_["DFM"]            = RadioStation("DFM",                      "http://dfm.hostingradio.ru/dfm96.aacp",              "Клубная и танцевальная музыка",  "Club / Dance",        4.5f);
+    radio_stations_["NASHE"]          = RadioStation("Наше Радио",               "http://nashe1.hostingradio.ru/nashe-128.mp3",       "Русский рок и рок-хиты",         "Russian Rock",        4.5f);
+    radio_stations_["RECORD_ROCK"]    = RadioStation("Рекорд Рок",               "https://radiorecord.hostingradio.ru/rock96.aacp",    "Зарубежный и классический рок",  "Rock",                4.5f);
 
-    /* === VOV Regional (VOV4) === */
-    radio_stations_["VOV_MEKONG"]       = RadioStation("VOV Mekong FM",                 "https://stream.vovmedia.vn/vovmekong",   "Miền Tây - Đồng bằng sông Cửu Long",       "Regional",             4.6f);
-    radio_stations_["VOV4_MIENTRUNG"]   = RadioStation("VOV4 Miền Trung",               "https://stream.vovmedia.vn/vov4mt",      "Dân tộc - Miền Trung",                      "Regional",             4.3f);
-    radio_stations_["VOV4_TAYBAC"]      = RadioStation("VOV4 Tây Bắc",                  "https://stream.vovmedia.vn/vov4tb",      "Dân tộc - Tây Bắc",                         "Regional",             4.4f);
-    radio_stations_["VOV4_DONGBAC"]     = RadioStation("VOV4 Đông Bắc",                 "https://stream.vovmedia.vn/vov4db",      "Dân tộc - Đông Bắc",                        "Regional",             4.4f);
-    radio_stations_["VOV4_TAYNGUYEN"]   = RadioStation("VOV4 Tây Nguyên",               "https://stream.vovmedia.vn/vov4tn",      "Dân tộc - Tây Nguyên",                      "Regional",             4.5f);
-    radio_stations_["VOV4_DBSCL"]       = RadioStation("VOV4 ĐBSCL",                    "https://stream.vovmedia.vn/vov4dbscl",   "Dân tộc - Đồng bằng sông Cửu Long",         "Regional",             4.5f);
-    radio_stations_["VOV4_HCM"]         = RadioStation("VOV4 TP.HCM",                   "https://stream.vovmedia.vn/vov4hcm",     "Dân tộc - TP.HCM",                          "Regional",             4.5f);
+    /* === Ambient, Lo-Fi & Chill === */
+    radio_stations_["CODERADIO"]      = RadioStation("CodeRadio (freeCodeCamp)", "https://coderadio-admin-v2.freecodecamp.org/listen/coderadio/radio.mp3", "Lo-Fi биты для работы и учёбы", "Lo-Fi / Beats", 4.5f);
+    radio_stations_["GROOVE_SALAD"]   = RadioStation("SomaFM Groove Salad",      "https://ice2.somafm.com/groovesalad-128-mp3",       "Downtempo и чиллаут эмбиент",   "Ambient / Downtempo", 4.5f);
+    radio_stations_["DRONE_ZONE"]     = RadioStation("SomaFM Drone Zone",        "https://ice2.somafm.com/dronezone-128-mp3",         "Атмосферный космический эмбиент", "Ambient / Space",    4.5f);
+    radio_stations_["DEFCON"]         = RadioStation("SomaFM DEF CON",           "https://ice2.somafm.com/defcon-128-mp3",            "Хакерская электронная музыка",   "Synth / Electronic",  4.5f);
+    radio_stations_["SECRET_AGENT"]   = RadioStation("SomaFM Secret Agent",      "https://ice2.somafm.com/secretagent-128-mp3",       "Шпионский лаунж и ретро",        "Lounge / Retro",      4.5f);
 
-    /* === VOV English === */
-    radio_stations_["VOV5_ENGLISH"]     = RadioStation("VOV 5 – English 24/7",          "https://stream.vovmedia.vn/vov247",      "Kênh tiếng Anh quốc tế",                   "International",        4.0f);
+    /* === Jazz, Rock & Classical === */
+    radio_stations_["JAZZ"]           = RadioStation("KSDS Jazz 88.3",           "https://ksds-ice.streamguys1.com/ksds.mp3",          "Классический и современный джаз", "Jazz",                4.5f);
+    radio_stations_["PARADISE"]       = RadioStation("Radio Paradise",           "http://stream.radioparadise.com/mp3-128",            "Эклектичный рок, инди и акустика", "Eclectic / Rock",    4.5f);
+    radio_stations_["CLASSICAL"]      = RadioStation("Classical California KUSC","https://14103.live.streamtheworld.com/KUSCAAC96.aac", "Симфоническая и классическая музыка", "Classical", 4.5f);
+    radio_stations_["CINEMIX"]        = RadioStation("Cinemix",                  "https://kathy.torontocast.com:1825/stream",          "Музыка и саундтреки из фильмов", "Soundtracks",         4.5f);
 
     ESP_LOGI(TAG, "Initialised %d radio stations", (int)radio_stations_.size());
 }
@@ -82,28 +81,25 @@ void Esp32Radio::InitializeRadioStations()
 
 AudioDecoderType Esp32Radio::GuessDecoderType(const std::string& url) const
 {
-    /* VOV streams are AAC/AAC+ */
-    if (url.find("vovmedia.vn") != std::string::npos) {
-        return AudioDecoderType::AAC;
-    }
-
-    /* Check common URL patterns */
     std::string lower = url;
     std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
 
     if (lower.find(".aac") != std::string::npos ||
         lower.find("aacp") != std::string::npos ||
-        lower.find("aac+") != std::string::npos) {
+        lower.find("aac+") != std::string::npos ||
+        lower.find("/aac") != std::string::npos ||
+        lower.find("-aac") != std::string::npos) {
         return AudioDecoderType::AAC;
     }
 
-    if (lower.find(".mp3") != std::string::npos) {
+    if (lower.find(".mp3") != std::string::npos ||
+        lower.find("-mp3") != std::string::npos ||
+        lower.find("/mp3") != std::string::npos) {
         return AudioDecoderType::MP3;
     }
 
-    /* Default to AAC for unknown radio streams (common for internet radio) */
-    ESP_LOGW(TAG, "Cannot determine stream type from URL, defaulting to AAC");
-    return AudioDecoderType::AAC;
+    /* Default to MP3 for standard shoutcast/icecast streams */
+    return AudioDecoderType::MP3;
 }
 
 /* ================================================================== */
@@ -148,13 +144,43 @@ bool Esp32Radio::PlayStation(const std::string& station_name)
         }
     }
 
-    /* 4) Vietnamese phonetic / keyword matching */
+    /* 4) Russian and English keyword / genre matching */
     static const std::vector<std::pair<std::string, std::string>> keyword_map = {
-        {"tây nguyên", "VOV4_TAYNGUYEN"},
-        {"tay nguyen", "VOV4_TAYNGUYEN"},
-        {"giao thông", "VOV_GT_HN"},
-        {"mê kông"   , "VOV_MEKONG"},
-        {"mekong"    , "VOV_MEKONG"},
+        {"рекорд", "RECORD"},
+        {"record", "RECORD"},
+        {"русск", "RUSSIAN_MIX"},
+        {"russian", "RUSSIAN_MIX"},
+        {"чилл", "CHILL"},
+        {"chill", "CHILL"},
+        {"dfm", "DFM"},
+        {"дифм", "DFM"},
+        {"динамит", "DFM"},
+        {"наше", "NASHE"},
+        {"рок", "RECORD_ROCK"},
+        {"rock", "RECORD_ROCK"},
+        {"lofi", "CODERADIO"},
+        {"lo-fi", "CODERADIO"},
+        {"лофай", "CODERADIO"},
+        {"code", "CODERADIO"},
+        {"код", "CODERADIO"},
+        {"salad", "GROOVE_SALAD"},
+        {"салад", "GROOVE_SALAD"},
+        {"drone", "DRONE_ZONE"},
+        {"дроун", "DRONE_ZONE"},
+        {"defcon", "DEFCON"},
+        {"дефкон", "DEFCON"},
+        {"agent", "SECRET_AGENT"},
+        {"агент", "SECRET_AGENT"},
+        {"jazz", "JAZZ"},
+        {"джаз", "JAZZ"},
+        {"парадайз", "PARADISE"},
+        {"paradise", "PARADISE"},
+        {"классик", "CLASSICAL"},
+        {"classic", "CLASSICAL"},
+        {"кино", "CINEMIX"},
+        {"cinema", "CINEMIX"},
+        {"саундтрек", "CINEMIX"},
+        {"soundtrack", "CINEMIX"},
     };
 
     for (const auto& pair : keyword_map) {
@@ -167,23 +193,13 @@ bool Esp32Radio::PlayStation(const std::string& station_name)
         }
     }
 
-    /* 5) VOV + number shorthand */
-    if (lower_input.find("vov") != std::string::npos) {
-        for (char c = '1'; c <= '5'; ++c) {
-            if (lower_input.find(c) != std::string::npos) {
-                std::string key = "VOV" + std::string(1, c);
-                auto found = radio_stations_.find(key);
-                if (found != radio_stations_.end()) {
-                    current_station_volume_ = found->second.volume;
-                    return PlayUrl(found->second.url, found->second.name);
-                }
-            }
-        }
-        /* Default to VOV1 for generic "vov" */
-        auto vov1 = radio_stations_.find("VOV1");
-        if (vov1 != radio_stations_.end()) {
-            current_station_volume_ = vov1->second.volume;
-            return PlayUrl(vov1->second.url, vov1->second.name);
+    /* 5) Fallback: if user just said "radio" or "any" or "random" */
+    if (lower_input.empty() || lower_input == "random" || lower_input == "радио" ||
+        lower_input == "рандом" || lower_input == "любое" || lower_input == "radio") {
+        auto def = radio_stations_.find("RECORD");
+        if (def != radio_stations_.end()) {
+            current_station_volume_ = def->second.volume;
+            return PlayUrl(def->second.url, def->second.name);
         }
     }
 
