@@ -1,7 +1,7 @@
 # D-Solution / OSTB Xiaozhi — Pinout & Hardware Reference
 
 **MCU:** ESP32-S3 N16R8 (16MB Flash, 8MB Octal PSRAM)  
-**Board SKU:** `ostb-xiaozhi-3st` / Box D-Solution 1.83" / 2" 2-Mic  
+**Board SKU:** `ostb-xiaozhi-3st` / Box D-Solution 2.0" 2-Mic  
 **Firmware Version:** Xiaozhi ESP32 v2.4.2.1+  
 **Audio Codecs:** ES8311 (Speaker DAC / Amp) + ES7210 (Mic ADC array, TDM Slave)  
 **Display:** NV3030B / NV3023 (296×240 SPI)  

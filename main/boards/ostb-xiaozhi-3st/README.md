@@ -1,8 +1,11 @@
-# OSTB Xiaozhi 3st (Box D-Solution 1.83" / 2" 2-Mic)
+# OSTB Xiaozhi 3st (Box D-Solution 2.0" 2-Mic)
+
+- **Website:** https://dsolution.vn/
+- **Shopee:** https://shopee.vn/dsolution.tb
 
 ## Hardware Specifications
 - **MCU:** ESP32-S3-WROOM-1 (N16R8, 16MB Flash, 8MB Octal PSRAM)
-- **Display:** 1.83" / 2.0" NV3030B LCD (296x240 active area, SPI)
+- **Display:** 2.0" NV3030B / NV3023 LCD (296x240 active area, SPI)
   - Display Width: 296, Height: 240
   - Offset X: 24, Offset Y: 0
   - Swap XY: true, Mirror X: true, Mirror Y: true
