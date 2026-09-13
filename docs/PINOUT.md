@@ -4,7 +4,7 @@
 **Board SKU:** `ostb-xiaozhi-3st` / Box D-Solution 1.83" / 2" 2-Mic  
 **Firmware Version:** Xiaozhi ESP32 v2.4.2.1+  
 **Audio Codecs:** ES8311 (Speaker DAC / Amp) + ES7210 (Mic ADC array, TDM Slave)  
-**Display:** NV3030B / NV3023 (284×240 SPI)  
+**Display:** NV3030B / NV3023 (296×240 SPI)  
 **Touch Controller:** CST816S Capacitive Touch (IC ID: 184)  
 **Partition Table:** [PARTITIONS.md](file:///home/schrab/Projects/xiaozhi-esp32_vietnam/docs/PARTITIONS.md) (5.25MB Dual OTA + 5.375MB Assets)  
 **Connectivity:** Wi-Fi 2.4 GHz + Bluetooth 5 (LE)  
@@ -23,12 +23,12 @@
 | **LCD_BL** | BL | **GPIO 13** | Backlight Control (PWM) |
 
 **Display Configuration:**
-- **Resolution:** 284 × 240
+- **Resolution:** 296 × 240
 - **Interface:** SPI3 @ 80 MHz
 - **Swap XY:** `true`
-- **Mirror X:** `false`
-- **Mirror Y:** `true` (180° rotation)
-- **Offset X / Y:** `0, 0`
+- **Mirror X:** `true`
+- **Mirror Y:** `true`
+- **Offset X / Y:** `24, 0`
 - **LVGL Image Cache:** 2 MB PSRAM allocated
 
 ---
@@ -36,7 +36,7 @@
 ## 2. Touchscreen — CST816S
 
 - **Touch Controller IC:** CST816S (Chip ID: `184`)
-- **Interface:** I2C bus
+- **Interface:** Shared Codec I2C bus (SCL: **GPIO 11**, SDA: **GPIO 12**)
 
 ---
 
@@ -50,8 +50,8 @@
 | **AUDIO_DOUT** | DOUT | **GPIO 6** | I2S Data Out (ESP32 → ES8311 DAC) |
 | **AUDIO_DIN** | DIN | **GPIO 7** | I2S Data In (ES7210 ADC → ESP32) |
 | **AUDIO_PA** | PA | **GPIO 4** | Power Amplifier Enable (NS4150 on/off) |
-| **AUDIO_I2C_SCL** | SCL | **GPIO 11** | Codec I2C Clock |
-| **AUDIO_I2C_SDA** | SDA | **GPIO 12** | Codec I2C Data |
+| **AUDIO_I2C_SCL** | SCL | **GPIO 11** | Codec / Touch I2C Clock |
+| **AUDIO_I2C_SDA** | SDA | **GPIO 12** | Codec / Touch I2C Data |
 
 **Audio Parameters:**
 - **Speaker DAC:** ES8311 (Slave mode)
@@ -62,16 +62,16 @@
 
 ---
 
-## 4. Power Management & System Buttons
+## 4. Power Management & System Controls
 
 | Function | Pin Label | GPIO | Description |
 | :--- | :--- | :--- | :--- |
-| **Detect Charge** | CHG | **GPIO 47** | Battery charging status input |
-| **Battery Level** | BAT | **GPIO 38** | Battery ADC voltage monitor |
-| **Sleep Control** | SLEEP | **GPIO 21** | RTC Sleep / Power Hold Control |
-| **Boot Button** | BOOT | **GPIO 0** | Boot / Mode Selection (Active Low) |
-| **Volume Up** | V+ | **GPIO 39** | Volume Up button |
-| **Volume Down** | V- | **GPIO 40** | Volume Down button |
+| **Detect Charge** | CHG | **GPIO 47** | Battery charging status input (Active Low) |
+| **Battery Level** | BAT | **GPIO 17** | Battery ADC voltage monitor (ADC2_CH6) |
+| **Boot / Wakeup** | BOOT | **GPIO 0** | Bootloader & RTC Deep Sleep Wakeup (Active Low) |
+| **Volume Up** | V+ | **GPIO 40** | Volume Up button |
+| **Volume Down** | V- | **GPIO 39** | Volume Down button |
+| **Built-in LED** | LED | **GPIO 48** | Built-in Status / RGB LED |
 
 ---
 
@@ -89,7 +89,7 @@
 
 | GPIO | Function | Direction | Description |
 | :--- | :--- | :--- | :--- |
-| **GPIO 0** | BOOT Button | Input | Bootloader mode (Active Low) |
+| **GPIO 0** | BOOT / Wakeup | Input | Bootloader mode / RTC EXT0 Wakeup (Active Low) |
 | **GPIO 4** | AUDIO_PA | Output | NS4150 Amplifier Power Enable |
 | **GPIO 5** | AUDIO_MCLK | Output | Codec Master Clock (ES8311 / ES7210) |
 | **GPIO 6** | AUDIO_DOUT | Output | I2S Data Out (ESP32 → ES8311) |
@@ -97,18 +97,17 @@
 | **GPIO 8** | LCD_DC | Output | Display Data / Command Select |
 | **GPIO 9** | LCD_SCL | Output | Display SPI Clock (80 MHz) |
 | **GPIO 10** | LCD_SDA | Output | Display SPI MOSI (Data In) |
-| **GPIO 11** | AUDIO_I2C_SCL | Output | Codec / Peripheral I2C Clock |
-| **GPIO 12** | AUDIO_I2C_SDA | In/Out | Codec / Peripheral I2C Data |
+| **GPIO 11** | AUDIO_I2C_SCL | Output | Codec / Touch I2C Clock |
+| **GPIO 12** | AUDIO_I2C_SDA | In/Out | Codec / Touch I2C Data |
 | **GPIO 13** | LCD_BL | Output (PWM) | Display Backlight Brightness Control |
 | **GPIO 14** | LCD_CS | Output | Display SPI Chip Select |
 | **GPIO 15** | AUDIO_BCLK | Output | I2S Bit Clock |
 | **GPIO 16** | AUDIO_WS | Output | I2S Word Select / LRCK |
+| **GPIO 17** | BAT Monitor | Input (ADC) | Battery Voltage Sensing (ADC2_CH6) |
 | **GPIO 18** | LCD_RST | Output | Display Hardware Reset |
-| **GPIO 21** | SLEEP Control | Output | RTC Sleep / Power Hold Control |
-| **GPIO 38** | BAT Monitor | Input (ADC) | Battery Voltage Sensing |
-| **GPIO 39** | Volume Up | Input | Volume + Button |
-| **GPIO 40** | Volume Down | Input | Volume - Button |
+| **GPIO 39** | Volume Down | Input | Volume - Button |
+| **GPIO 40** | Volume Up | Input | Volume + Button |
 | **GPIO 43** | UART TX | Output | Console UART TX |
 | **GPIO 44** | UART RX | Input | Console UART RX |
-| **GPIO 47** | CHG Detect | Input | Charger status detection |
-
+| **GPIO 47** | CHG Detect | Input | Charger status detection (Active Low) |
+| **GPIO 48** | Built-in LED | Output | Status / RGB LED |
