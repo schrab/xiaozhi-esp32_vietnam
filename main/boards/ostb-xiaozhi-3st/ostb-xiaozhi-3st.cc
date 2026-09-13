@@ -242,11 +242,6 @@ private:
             GetDisplay()->ShowNotification(Lang::Strings::VOLUME + std::to_string(volume));
         });
 
-        volume_down_button_.OnDoubleClick([this]() {
-            power_save_timer_->WakeUp();
-            ResetWifiConfiguration();
-        });
-
         volume_down_button_.OnMultipleClick([this]() {
             power_save_timer_->WakeUp();
             ResetWifiConfiguration();

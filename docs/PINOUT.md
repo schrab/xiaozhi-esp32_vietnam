@@ -68,9 +68,9 @@
 | :--- | :--- | :--- | :--- |
 | **Detect Charge** | CHG | **GPIO 47** | Battery charging status input (Active Low) |
 | **Battery Level** | BAT | **GPIO 17** | Battery ADC voltage monitor (ADC2_CH6) |
-| **Boot / Wakeup** | BOOT | **GPIO 0** | Bootloader & RTC Deep Sleep Wakeup (Active Low) |
-| **Volume Up** | V+ | **GPIO 40** | Volume Up button |
-| **Volume Down** | V- | **GPIO 39** | Volume Down button |
+| **Boot / Wakeup** | BOOT | **GPIO 0** | Toggle chat (1-click) / Reset WiFi (6-click) / Deep sleep wakeup |
+| **Volume Up** | V+ | **GPIO 40** | Volume + (1-click) / Max vol (long press) / Toggle chat (2-click) |
+| **Volume Down** | V- | **GPIO 39** | Volume - (1-click) / Mute (long press) / Reset WiFi (5-click) |
 | **Built-in LED** | LED | **GPIO 48** | Built-in Status / RGB LED |
 
 ---
@@ -89,7 +89,7 @@
 
 | GPIO | Function | Direction | Description |
 | :--- | :--- | :--- | :--- |
-| **GPIO 0** | BOOT / Wakeup | Input | Bootloader mode / RTC EXT0 Wakeup (Active Low) |
+| **GPIO 0** | BOOT / Wakeup | Input | Bootloader mode / RTC EXT0 Wakeup / WiFi Reset (6-click) |
 | **GPIO 4** | AUDIO_PA | Output | NS4150 Amplifier Power Enable |
 | **GPIO 5** | AUDIO_MCLK | Output | Codec Master Clock (ES8311 / ES7210) |
 | **GPIO 6** | AUDIO_DOUT | Output | I2S Data Out (ESP32 → ES8311) |
@@ -105,8 +105,8 @@
 | **GPIO 16** | AUDIO_WS | Output | I2S Word Select / LRCK |
 | **GPIO 17** | BAT Monitor | Input (ADC) | Battery Voltage Sensing (ADC2_CH6) |
 | **GPIO 18** | LCD_RST | Output | Display Hardware Reset |
-| **GPIO 39** | Volume Down | Input | Volume - Button |
-| **GPIO 40** | Volume Up | Input | Volume + Button |
+| **GPIO 39** | Volume Down | Input | Volume - (1-click) / Mute (Hold) / WiFi Reset (5-click) |
+| **GPIO 40** | Volume Up | Input | Volume + (1-click) / Max Vol (Hold) / Chat (2-click) |
 | **GPIO 43** | UART TX | Output | Console UART TX |
 | **GPIO 44** | UART RX | Input | Console UART RX |
 | **GPIO 47** | CHG Detect | Input | Charger status detection (Active Low) |

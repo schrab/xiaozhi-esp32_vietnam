@@ -10,9 +10,9 @@
 - **Touchscreen:** CST816S (I2C)
 - **Power:** Onboard LiPo battery charger, battery ADC voltage monitoring
 - **Buttons:**
-  - BOOT / Wakeup: GPIO 0
-  - Volume Up: GPIO 39 (Single click: Volume +, Double click: Toggle chat / AP reset on startup)
-  - Volume Down: GPIO 40 (Single click: Volume -, Double click / 5-click: Reset WiFi AP)
+  - BOOT / Wakeup: GPIO 0 (Single click: Toggle chat, 6-click: Reset WiFi AP)
+  - Volume Up: GPIO 40 (Single click: Volume +, Long press: Max volume, Double click: Toggle chat)
+  - Volume Down: GPIO 39 (Single click: Volume -, Long press: Mute, 5-click: Reset WiFi AP)
 
 ## Pinout
 Refer to `docs/PINOUT.md` and `partitions/v2/16m_ostb_xiaozhi_3st.csv`.
