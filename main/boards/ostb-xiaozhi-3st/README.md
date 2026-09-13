@@ -17,5 +17,3 @@
 ## Documentation
 - [PINOUT.md](PINOUT.md) — Pinout, display, audio, and hardware mapping.
 - [PARTITIONS.md](PARTITIONS.md) — 16MB Flash memory map and partition profile (`partitions/v2/16m_ostb_xiaozhi_3st.csv`).
-- `sodoloa2mic.jpg` — Hardware wiring schematic.
-- `esp-web-tools-logs.txt` — Original stock boot reference log.
