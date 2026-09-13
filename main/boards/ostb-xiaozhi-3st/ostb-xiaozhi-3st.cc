@@ -27,6 +27,8 @@
 #include "ssid_manager.h"
 
 #include <esp_lcd_nv3023.h>
+#include <esp_lcd_touch_cst816s.h>
+#include <esp_lvgl_port.h>
 #include "settings.h"
 #include "pm.h"
 
@@ -239,6 +241,53 @@ private:
             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
     }
 
+    void InitializeTouch() {
+        esp_lcd_touch_config_t tp_cfg = {
+            .x_max = DISPLAY_WIDTH - 1,
+            .y_max = DISPLAY_HEIGHT - 1,
+            .rst_gpio_num = GPIO_NUM_NC,
+            .int_gpio_num = GPIO_NUM_NC,
+            .levels = {
+                .reset = 0,
+                .interrupt = 0,
+            },
+            .flags = {
+                .swap_xy = DISPLAY_SWAP_XY ? 1U : 0U,
+                .mirror_x = DISPLAY_MIRROR_X ? 1U : 0U,
+                .mirror_y = DISPLAY_MIRROR_Y ? 1U : 0U,
+            },
+        };
+        esp_lcd_panel_io_handle_t tp_io_handle = NULL;
+        esp_lcd_panel_io_i2c_config_t tp_io_config = {};
+        tp_io_config.dev_addr = ESP_LCD_TOUCH_IO_I2C_CST816S_ADDRESS;
+        tp_io_config.scl_speed_hz = 400 * 1000;
+        tp_io_config.control_phase_bytes = 1;
+        tp_io_config.lcd_cmd_bits = 8;
+        tp_io_config.lcd_param_bits = 0;
+        tp_io_config.flags.disable_control_phase = 1;
+
+        ESP_LOGI(TAG, "Initialize touch controller");
+        esp_err_t ret = esp_lcd_new_panel_io_i2c(i2c_bus_, &tp_io_config, &tp_io_handle);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Touch I2C panel IO create failed (%s), touch disabled", esp_err_to_name(ret));
+            return;
+        }
+
+        esp_lcd_touch_handle_t tp = NULL;
+        ret = esp_lcd_touch_new_i2c_cst816s(tp_io_handle, &tp_cfg, &tp);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "CST816S touch controller not detected (%s), touch disabled", esp_err_to_name(ret));
+            return;
+        }
+
+        const lvgl_port_touch_cfg_t touch_cfg = {
+            .disp = lv_display_get_default(),
+            .handle = tp,
+        };
+        lvgl_port_add_touch(&touch_cfg);
+        ESP_LOGI(TAG, "Touch panel initialized successfully");
+    }
+
 public:
     OstbXiaozhi3stBoard():
         boot_button_(BOOT_BUTTON_GPIO),
@@ -250,6 +299,7 @@ public:
         InitializeSpi();
         InitializeButtons();
         InitializeNv3023Display();
+        InitializeTouch();
         GetBacklight()->RestoreBrightness();
     }
 
