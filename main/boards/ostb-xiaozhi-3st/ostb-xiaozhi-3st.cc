@@ -72,6 +72,35 @@ static const nv3023_lcd_init_cmd_t lcd_init_cmds[] = {
 	{0x29,(const uint8_t[]){0},0,10},
 };
 
+class CustomLcdDisplay : public SpiLcdDisplay {
+public:
+    CustomLcdDisplay(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_handle_t panel,
+                     int width, int height, int offset_x, int offset_y,
+                     bool mirror_x, bool mirror_y, bool swap_xy)
+        : SpiLcdDisplay(panel_io, panel, width, height, offset_x, offset_y, mirror_x, mirror_y, swap_xy) {
+        DisplayLockGuard lock(this);
+        // Inset status bar by 48px from left and right to prevent icons from being clipped by rounded corners
+        if (status_bar_ != nullptr) {
+            lv_obj_set_style_pad_left(status_bar_, 48, 0);
+            lv_obj_set_style_pad_right(status_bar_, 48, 0);
+        }
+        // Inset content area so multiline text/chat does not touch bottom rounded corners
+        if (content_ != nullptr) {
+            lv_obj_set_style_pad_left(content_, 24, 0);
+            lv_obj_set_style_pad_right(content_, 24, 0);
+            lv_obj_set_style_pad_bottom(content_, 12, 0);
+        }
+        if (chat_message_label_ != nullptr) {
+            lv_obj_set_width(chat_message_label_, width_ * 0.8);
+        }
+        // Inset low battery warning popup to stay within rounded screen boundary
+        if (low_battery_popup_ != nullptr) {
+            lv_obj_set_width(low_battery_popup_, LV_HOR_RES * 0.75);
+            lv_obj_align(low_battery_popup_, LV_ALIGN_BOTTOM_MID, 0, -12);
+        }
+    }
+};
+
 class OstbXiaozhi3stBoard : public WifiBoard {
 private:
     Button boot_button_;
@@ -237,7 +266,7 @@ private:
         ESP_ERROR_CHECK(esp_lcd_panel_invert_color(panel_, false));
         ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
         
-        display_ = new SpiLcdDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, 
+        display_ = new CustomLcdDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, 
             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
     }
 
