@@ -1,10 +1,6 @@
 #include "wifi_board.h"
 #include "codecs/box_audio_codec.h"
 #include "display/lcd_display.h"
-#include "display/display.h"
-#if CONFIG_USE_EMOTE_MESSAGE_STYLE
-#include "display/emote_display.h"
-#endif
 #ifdef CONFIG_SD_CARD_MMC_INTERFACE
 #include "sdmmc.h"
 #elif defined(CONFIG_SD_CARD_SPI_INTERFACE)
@@ -110,7 +106,7 @@ private:
     Button boot_button_;
     Button volume_up_button_;
     Button volume_down_button_;
-    Display* display_;
+    SpiLcdDisplay* display_;
     PowerSaveTimer* power_save_timer_;
     PowerManager* power_manager_;
     esp_lcd_panel_io_handle_t panel_io_ = nullptr;
@@ -270,12 +266,8 @@ private:
         ESP_ERROR_CHECK(esp_lcd_panel_invert_color(panel_, false));
         ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
         
-#if CONFIG_USE_EMOTE_MESSAGE_STYLE
-        display_ = new emote::EmoteDisplay(panel_, panel_io_, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-#else
         display_ = new CustomLcdDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, 
             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
-#endif
     }
 
     void InitializeTouch() {
@@ -317,13 +309,11 @@ private:
             return;
         }
 
-#if !CONFIG_USE_EMOTE_MESSAGE_STYLE
         const lvgl_port_touch_cfg_t touch_cfg = {
             .disp = lv_display_get_default(),
             .handle = tp,
         };
         lvgl_port_add_touch(&touch_cfg);
-#endif
         ESP_LOGI(TAG, "Touch panel initialized successfully");
     }
 
