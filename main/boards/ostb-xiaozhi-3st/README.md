@@ -14,5 +14,8 @@
   - Volume Up: GPIO 40 (Single click: Volume +, Long press: Max volume, Double click: Toggle chat)
   - Volume Down: GPIO 39 (Single click: Volume -, Long press: Mute, 5-click: Reset WiFi AP)
 
-## Pinout
-Refer to `docs/PINOUT.md` and `partitions/v2/16m_ostb_xiaozhi_3st.csv`.
+## Documentation
+- [PINOUT.md](PINOUT.md) — Pinout, display, audio, and hardware mapping.
+- [PARTITIONS.md](PARTITIONS.md) — 16MB Flash memory map and partition profile (`partitions/v2/16m_ostb_xiaozhi_3st.csv`).
+- `sodoloa2mic.jpg` — Hardware wiring schematic.
+- `esp-web-tools-logs.txt` — Original stock boot reference log.

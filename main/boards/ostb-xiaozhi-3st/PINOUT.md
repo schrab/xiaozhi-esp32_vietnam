@@ -6,7 +6,7 @@
 **Audio Codecs:** ES8311 (Speaker DAC / Amp) + ES7210 (Mic ADC array, TDM Slave)  
 **Display:** NV3030B / NV3023 (296×240 SPI)  
 **Touch Controller:** CST816S Capacitive Touch (IC ID: 184)  
-**Partition Table:** [PARTITIONS.md](file:///home/schrab/Projects/xiaozhi-esp32_vietnam/docs/PARTITIONS.md) (5.25MB Dual OTA + 5.375MB Assets)  
+**Partition Table:** [PARTITIONS.md](PARTITIONS.md) (5.25MB Dual OTA + 5.375MB Assets)  
 **Connectivity:** Wi-Fi 2.4 GHz + Bluetooth 5 (LE)  
 
 ---
