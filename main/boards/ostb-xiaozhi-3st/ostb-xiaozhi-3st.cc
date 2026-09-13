@@ -31,7 +31,6 @@
 #include "pm.h"
 
 #define TAG "OstbXiaozhi3stBoard"
-extern "C" const lv_image_dsc_t xiaozhi_ai_iot_vietnam_logo;
 static const nv3023_lcd_init_cmd_t lcd_init_cmds[] = {
     {0xfd,(const uint8_t[]){0x06,0x08},2,0},
 	{0x61,(const uint8_t[]){0x07,0x04},2,0},
@@ -71,54 +70,12 @@ static const nv3023_lcd_init_cmd_t lcd_init_cmds[] = {
 	{0x29,(const uint8_t[]){0},0,10},
 };
 
-class LogoLcdDisplay : public SpiLcdDisplay {
-public:
-    LogoLcdDisplay(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_handle_t panel,
-                  int width, int height, int offset_x, int offset_y,
-                  bool mirror_x, bool mirror_y, bool swap_xy)
-        : SpiLcdDisplay(panel_io, panel, width, height, offset_x, offset_y, mirror_x, mirror_y, swap_xy) {}
-
-    void Logo() {
-        DisplayLockGuard lock(this);
-        lv_obj_t * img = lv_img_create(lv_layer_top());
-        if (img == NULL) {
-            ESP_LOGE(TAG, "Failed to create LVGL image object");
-            return;
-        }
-
-        LV_IMG_DECLARE(xiaozhi_ai_iot_vietnam_logo);
-        lv_img_set_src(img, &xiaozhi_ai_iot_vietnam_logo);
-        if (lv_img_get_src(img) == NULL) {
-            ESP_LOGE("LVGL", "Failed to load image from /spiffs/logo.png");
-            lv_obj_del(img);
-            return;
-        }
-
-        lv_obj_center(img);
-        ESP_LOGI("LVGL", "load image from logo.png");
-
-        const TickType_t end_time = xTaskGetTickCount() + pdMS_TO_TICKS(5000);
-        while (xTaskGetTickCount() < end_time) {
-            lv_task_handler();
-            vTaskDelay(pdMS_TO_TICKS(10));
-        }
-
-        if (img != NULL && lv_obj_is_valid(img)) {
-            ESP_LOGI("LVGL", "Deleting image object");
-            lv_obj_del(img);
-        } else {
-            ESP_LOGE("LVGL", "Image object is invalid or already deleted");
-        }
-
-    }
-};
-
 class OstbXiaozhi3stBoard : public WifiBoard {
 private:
     Button boot_button_;
     Button volume_up_button_;
     Button volume_down_button_;
-    LogoLcdDisplay* display_;
+    SpiLcdDisplay* display_;
     PowerSaveTimer* power_save_timer_;
     PowerManager* power_manager_;
     esp_lcd_panel_io_handle_t panel_io_ = nullptr;
@@ -278,7 +235,7 @@ private:
         ESP_ERROR_CHECK(esp_lcd_panel_invert_color(panel_, false));
         ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
         
-        display_ = new LogoLcdDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, 
+        display_ = new SpiLcdDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, 
             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
     }
 
@@ -294,8 +251,6 @@ public:
         InitializeButtons();
         InitializeNv3023Display();
         GetBacklight()->RestoreBrightness();
-
-        display_->Logo();
     }
 
     virtual AudioCodec* GetAudioCodec() override { 
